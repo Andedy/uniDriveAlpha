@@ -253,11 +253,14 @@ class _CriarCaronaState extends State<CriarCarona> {
                       Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => DetalhesMinhaCarona(
-                                  name: widget.username,
+                                  // name: widget.username,
+//descomment aqui
+
                                   localSaida: _localSaidaController.text,
                                   destino: _destinoController.text,
                                   horario: _horarioSaidaController.text,
                                   valor: _valorController.text,
+//ate aqui
                                 ),
                               ), //envia ID da carona para DetalhesCarona()
                             );

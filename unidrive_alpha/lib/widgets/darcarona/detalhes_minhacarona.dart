@@ -2,49 +2,52 @@ import 'package:flutter/material.dart';
 import 'package:unidrive_alpha/screen/darcarona/criar_carona.dart';
 
 class DetalhesMinhaCaronaWidget extends StatelessWidget {
-  String name;
   String destino;
   String horario;
   String localSaida;
   String valor;
 
+
   DetalhesMinhaCaronaWidget(
-      {this.name, this.destino, this.horario, this.localSaida, this.valor});
+      {this.destino, this.horario, this.localSaida, this.valor});
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
           padding: EdgeInsets.only(top: 40),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "Carona de ",
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontFamily: 'Montserrat',
-                  fontSize: 36,
-                ),
-              ),
-              Text(
-                name,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 36,
-                ),
+              Column(
+                children: [
+                  Text(
+                    "Você criou ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Montserrat',
+                      fontSize: 36,
+                    ),
+                  ),
+                  Text(
+                    "essa carona",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Montserrat',
+                      fontSize: 36,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
-        SizedBox(height: 100),
+        SizedBox(height: 80),
         Container(
           height: 700, //era500
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(40),
               topLeft: Radius.circular(40),
@@ -65,7 +68,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             "Destino: ",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.white,
+                                color: Theme.of(context).primaryColor,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w300),
                           ),
@@ -73,7 +76,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             destino,
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.white,
+                                color: Theme.of(context).primaryColor,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w600),
                           ),
@@ -91,7 +94,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             "Saída: ",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.white,
+                                color: Theme.of(context).primaryColor,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w300),
                           ),
@@ -99,7 +102,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             localSaida,
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.white,
+                                color: Theme.of(context).primaryColor,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold),
                           ),
@@ -115,7 +118,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             "Horário: ",
                             style: TextStyle(
                               fontSize: 24,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                               fontFamily: 'Montserrat',
                             ),
                           ),
@@ -123,7 +126,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             horario,
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.white,
+                                color: Theme.of(context).primaryColor,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w600),
                           ),
@@ -131,7 +134,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             "h",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.white,
+                                color: Theme.of(context).primaryColor,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w600),
                           ),
@@ -147,7 +150,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             "Valor: ",
                             style: TextStyle(
                               fontSize: 24,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w300,
                               fontFamily: 'Montserrat',
                             ),
@@ -156,7 +159,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             "R\$ ",
                             style: TextStyle(
                               fontSize: 24,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Montserrat',
                             ),
@@ -165,7 +168,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                             valor,
                             style: TextStyle(
                               fontSize: 24,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Montserrat',
                             ),
@@ -176,26 +179,27 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                     SizedBox(height: 150),
                     Column(
                       children: <Widget>[
-                        OutlineButton(
-                          padding: EdgeInsets.all(16), //conferir botoes e tamanhos
-                          onPressed: () {},
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 300,
-                            child: Text(
-                              "Falar com motorista",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                              ),
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            //side: BorderSide(color: Colors.red),
+                          ),
+                          child: Text(
+                            "Pausar Carona",
+                            style: TextStyle(
+                              fontSize: 24.0,
                             ),
                           ),
-                          borderSide: BorderSide(color: Colors.white),
-                          shape: StadiumBorder(),
+                          textColor: Colors.white,
+                          padding: EdgeInsets.fromLTRB(100, 10, 100, 10),
+                          color: Color(0xFF292929),
+                          onPressed: () {
+                            
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => Home()));
+                          },
                         ),
-                        SizedBox(height: 7),
+                        SizedBox(height: 8),
                         Container(
                           height: 40,
                           width: 340,
@@ -204,9 +208,9 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                           ),
                           child: FlatButton(
                             child: Text(
-                              "Quer criar uma carona?",
+                              "Excluir Carona",
                               style: TextStyle(
-                                color: Colors.white60,
+                                color: Colors.red[900],
                                 fontSize: 16,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,

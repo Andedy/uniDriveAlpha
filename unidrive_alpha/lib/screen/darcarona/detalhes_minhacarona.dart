@@ -6,23 +6,18 @@ import 'package:unidrive_alpha/widgets/darcarona/detalhes_minhacarona.dart';
 import 'package:unidrive_alpha/widgets/pegarcarona/detalhes_carona.dart';
 
 class DetalhesMinhaCarona extends StatelessWidget {
-  // Future getCaronas() async {
-  //   QuerySnapshot query =
-  //       await Firestore.instance.collection("caronas").where("name",isEqualTo: "ativo).getDocuments();
-
-  //   return query.documents;
-  // }
-
-
-  String name;
+ 
+  // String destino = "Torres";
+  // String horario = "12";
+  // String localSaida = "Capão";
+  // String valor = "30";
   String destino;
   String horario;
   String localSaida;
   String valor;
-  String telefone; 
   
   final _pageController = PageController();
-  DetalhesMinhaCarona({this.name,this.destino,this.horario,this.localSaida,this.valor});
+  DetalhesMinhaCarona({this.destino,this.horario,this.localSaida,this.valor});
 
   @required
   @override
@@ -30,13 +25,13 @@ class DetalhesMinhaCarona extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0,
         leading: new IconButton(
           padding: EdgeInsets.only(top: 10, left: 16),
           icon: new Icon(
             Icons.arrow_back,
-            color: Theme.of(context).primaryColor,
+            color: Colors.white,
             size: 34,
           ),
           onPressed: () => Navigator.of(context).pop(),
@@ -44,14 +39,14 @@ class DetalhesMinhaCarona extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  DetalhesMinhaCaronaWidget(name: name,destino: destino,horario: horario,localSaida: localSaida,valor: valor),
+                  DetalhesMinhaCaronaWidget(destino: destino,horario: horario,localSaida: localSaida,valor: valor),
                   Positioned(
                     top: 120,
                     child: Container(
