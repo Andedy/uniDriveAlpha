@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:unidrive_alpha/datas/carona_data.dart';
 import 'package:unidrive_alpha/models/carona_model.dart';
 import 'package:unidrive_alpha/models/user_model.dart';
+import 'package:unidrive_alpha/screen/darcarona/detalhes_minhacarona.dart';
 import 'dart:async';
+
+import 'package:unidrive_alpha/widgets/darcarona/detalhes_minhacarona.dart';
 
 class CriarCarona extends StatefulWidget {
   String username;
@@ -42,6 +46,7 @@ class _CriarCaronaState extends State<CriarCarona> {
             return Center(child: CircularProgressIndicator());
 
           return Form(
+            
             key: _formKey, //faz meu validator funcionar
             child: ListView(
               padding: EdgeInsets.all(36.0),
@@ -86,7 +91,7 @@ class _CriarCaronaState extends State<CriarCarona> {
                 TextFormField(
                   controller: _destinoController,
                   decoration: InputDecoration(
-                    hintText: "Informe sua faculdade",
+                    hintText: "Informe faculdade de destino",
                     hintStyle: TextStyle(
                         //fontWeight: FontWeight.bold
                         ),
@@ -178,18 +183,47 @@ class _CriarCaronaState extends State<CriarCarona> {
                 TextFormField(
                     controller: _telController,
                     decoration: InputDecoration(
-                      hintText: "Caroneiros entrarão em contato com você nesse número",
+                      hintText: "Exemplo: 51999999999",
+                      semanticCounterText:
+                          'Insira seu telefone. Exemplo: 51999999999',
                       hintStyle: TextStyle(
+
                           //fontWeight: FontWeight.bold
                           ),
                     ),
                     keyboardType: TextInputType.number,
                     validator: (text) {
-                      if (text.isEmpty)
-                        return "Whatsapp Inválido!";
+                      if (text.isEmpty) return "Whatsapp Inválido!";
                     }),
-
-                SizedBox(height: 34.0),
+                SizedBox(height: 4),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: FlatButton(
+                    onPressed: () {},
+                    child: Column(
+                      children: [
+                        Text(
+                          "Ao criar uma carona, pessoas poderão ",
+                          semanticsLabel: 'entrar em contato pelo seu Whatsapp',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontFamily: 'Montserrat'),
+                        ),
+                        Text(
+                          "entrar em contato pelo seu Whatsapp.",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontFamily: 'Montserrat'),
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets
+                        .zero, //faz meu botão ficar bem colado a direita (máximo do scaffold)
+                  ),
+                ),
+                SizedBox(height: 24),
                 RaisedButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
@@ -215,9 +249,21 @@ class _CriarCaronaState extends State<CriarCarona> {
                       caronas.telefone = _telController.text;
                       //model.addCarona(caronas, _onSuccess, _onFail);
                       model.finishCarona(caronas);
+                      // model.addCarona(caronas, () { }, () { });
+                      Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => DetalhesMinhaCarona(
+                                  name: widget.username,
+                                  localSaida: _localSaidaController.text,
+                                  destino: _destinoController.text,
+                                  horario: _horarioSaidaController.text,
+                                  valor: _valorController.text,
+                                ),
+                              ), //envia ID da carona para DetalhesCarona()
+                            );
 
                       // Map<String, dynamic> caronaData = {
-                      //     "destino": _destinoController.text, //ADICIONE .TEXT NO FIM DESSE INFERNO
+                      //     "destino": _destinoController.text,
                       //     "localSaida": _localSaidaController.text,
                       //     "horarioSaida": _horarioSaidaController.text,
                       //   };

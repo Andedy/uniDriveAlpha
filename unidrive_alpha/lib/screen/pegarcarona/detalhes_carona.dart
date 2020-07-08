@@ -12,13 +12,12 @@ class DetalhesCarona extends StatelessWidget {
     return query.documents;
   }
 
-
   String name;
   String destino;
   String horario;
   String localSaida;
   String valor;
-  String telefone; //adicionar telefone pra falar com motorista 
+  String telefone; 
   
   final _pageController = PageController();
   DetalhesCarona({this.name,this.destino,this.horario,this.localSaida,this.valor, this.telefone});

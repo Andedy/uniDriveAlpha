@@ -1,11 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:unidrive_alpha/screen/auth/login.dart';
+import 'package:unidrive_alpha/screen/auth/termos.dart';
 import 'package:unidrive_alpha/screen/darcarona/detalhes_minhacarona.dart';
 import 'package:unidrive_alpha/screen/home.dart';
 import 'models/carona_model.dart';
 import 'models/user_model.dart';
 
 void main() => runApp(MyApp());
+
+ // Set default home.
+  Widget _defaultHome = new Home();
+
 
 class MyApp extends StatefulWidget {
   @override
@@ -29,7 +36,8 @@ class _MyAppState extends State<MyApp> {
                 primaryColor: Color(0xFF08AEA4),
                 primaryColorDark: Color(0xFF00877F),
               ),
-              home: Home(),
+              home: _defaultHome,
+              
             ),
           );
         },

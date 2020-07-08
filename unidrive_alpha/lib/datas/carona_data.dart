@@ -32,6 +32,7 @@ class Carona{
       "valor": valor,
       "username": username,
       "ativo": ativo,
+      "telefone": telefone,
     };
   }
 }

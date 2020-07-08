@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:unidrive_alpha/models/user_model.dart';
 import 'package:unidrive_alpha/screen/auth/signup.dart';
+import 'package:unidrive_alpha/screen/auth/termos.dart';
 import 'package:unidrive_alpha/screen/home.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,16 +22,17 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          leading: new IconButton(
-            icon: new Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+          // leading: new IconButton(
+          //   icon: new Icon(Icons.arrow_back, color: Colors.white),
+          //   onPressed: () => Navigator.of(context).pop(),
+          // ),
           elevation: 0,
           backgroundColor: Theme.of(context).primaryColor,
           actions: <Widget>[
             FlatButton(
               child: Text(
-                "Ajuda",
+                "Termos de Uso",
+                semanticsLabel: "Termos de Uso",
                 style: TextStyle(
                   fontSize: 15.0,
                   color: Colors.white,
@@ -38,11 +40,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               textColor: Color(0xFF08AEA4),
-              onPressed: () {},
+              onPressed: () {
+                 Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => TermosScreen()));
+              },
             ),
           ],
         ),
         body: ScopedModelDescendant<UserModel>(
+
             ///scopped adicionado para poder "atualizar todo o app quando um usuario estiver logado, por exemplo"
             builder: (context, child, model) {
           //adicionado junto com scopped - criamos uma forma de acessar o nosso model
@@ -51,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
           return Container(
             color: Theme.of(context).primaryColor,
-            padding: EdgeInsets.fromLTRB(20, 100,20,120),
+            padding: EdgeInsets.fromLTRB(20, 100, 20, 120),
             child: Form(
               key: _formKey, //faz meu validator funcionar
               child: ListView(
@@ -61,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       "Login",
+                      semanticsLabel: 'Tela de Login',
                       style: TextStyle(
                         fontSize: 60,
                         fontFamily: 'Montserrat',
@@ -71,6 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 34),
                   Text(
                     "Email",
+                    semanticsLabel: 'Email',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.w500,
@@ -83,13 +91,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: _emailController,
                     decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white70)),
+                          borderSide: BorderSide(color: Colors.white70)),
                       hintText: "Insira seu email",
                       hintStyle: TextStyle(
-                          //fontWeight: FontWeight.bold
-                          fontFamily: 'Montserrat',
-                          color: Colors.white60,
-                          ),
+                        //fontWeight: FontWeight.bold
+                        fontFamily: 'Montserrat',
+                        color: Colors.white60,
+                      ),
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: (text) {
@@ -104,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   Text(
                     "Senha",
+                    semanticsLabel: 'Senha',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontFamily: 'Montserrat',
@@ -115,13 +124,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _passController,
                       decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white70)),
+                            borderSide: BorderSide(color: Colors.white70)),
                         hintText: "Insira sua senha",
                         hintStyle: TextStyle(
-                            //fontWeight: FontWeight.bold
-                            fontFamily: 'Montserrat',
-                            color: Colors.white60,
-                            ),
+                          //fontWeight: FontWeight.bold
+                          fontFamily: 'Montserrat',
+                          color: Colors.white60,
+                        ),
                       ),
                       obscureText: true,
                       validator: (text) {
@@ -134,6 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {},
                       child: Text(
                         "Esqueceu a senha?",
+                        semanticsLabel: 'Esqueceu a senha?',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontFamily: 'Montserrat',
@@ -152,6 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: Text(
                       "Entrar",
+                      semanticsLabel: 'Botão de Entrar',
                       style: TextStyle(
                         fontSize: 20.0,
                         fontFamily: 'Montserrat',
@@ -176,11 +187,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.center,
                     child: FlatButton(
                       onPressed: () async {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => SignUpScreen()));
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => SignUpScreen()));
                       },
                       child: Text(
                         "Cadastrar",
+                        semanticsLabel: 'Botão de Cadastrar',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -200,12 +212,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onSuccess() {
-    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => Home()));
   }
 
   void _onFail() {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text("Falha ao entrar!"),
+      content: Text("Falha ao entrar!", semanticsLabel: 'Falha ao Entrar',),
       backgroundColor: Colors.redAccent,
       duration: Duration(seconds: 2),
     ));

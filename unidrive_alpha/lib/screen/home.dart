@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:unidrive_alpha/models/user_model.dart';
+import 'package:unidrive_alpha/screen/auth/login.dart';
 import 'package:unidrive_alpha/screen/pegarcarona/pegar_carona_screen.dart';
 import 'package:unidrive_alpha/widgets/custom_drawer.dart';
 import 'package:unidrive_alpha/widgets/home.option.dart';
@@ -48,7 +50,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    if(FirebaseAuth.instance.currentUser() == null){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+    } else {
+      return Scaffold(
       backgroundColor: back,
       appBar: AppBar(
         leading: new IconButton(
@@ -91,7 +96,7 @@ class _HomeState extends State<Home> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            CriarCarona(username: model.userData["name"],), //mudar para CARONASCREEN
+                            CriarCarona(username: model.userData["name"]), //mudar para CARONASCREEN
                       ),
                     );
                   },
@@ -108,5 +113,9 @@ class _HomeState extends State<Home> {
 
       }),
     );
+    }
+
+
+    
   }
 }

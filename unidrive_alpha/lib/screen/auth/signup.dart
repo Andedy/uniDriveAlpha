@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:unidrive_alpha/models/user_model.dart';
+import 'package:unidrive_alpha/screen/auth/login.dart';
+import 'package:unidrive_alpha/screen/auth/termos.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -23,10 +25,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       key: _scaffoldKey,
       appBar: AppBar(
         leading: new IconButton(
-          icon:
-              new Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+            icon: new Icon(Icons.arrow_back,
+                color: Theme.of(context).primaryColor),
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
+            }),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
@@ -44,6 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   alignment: Alignment.center,
                   child: Text(
                     "Criar Conta",
+                    semanticsLabel: 'Tela de Criar Conta',
                     style: TextStyle(
                       fontSize: 42,
                       fontFamily: 'Montserrat',
@@ -63,6 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _nameController,
                   decoration: InputDecoration(
                     hintText: "Insira seu nome completo",
+                    semanticCounterText: 'Insira seu nome completo',
                     hintStyle: TextStyle(
                         //fontWeight: FontWeight.bold
                         ),
@@ -85,6 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _addressController,
                   decoration: InputDecoration(
                     hintText: "Insira seu endereço",
+                    semanticCounterText: 'Insira seu endereço',
                     hintStyle: TextStyle(
                         //fontWeight: FontWeight.bold
                         ),
@@ -107,13 +114,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _telController,
                   decoration: InputDecoration(
                     hintText: "Exemplo: 51999999999",
+                    semanticCounterText:
+                        'Insira seu telefone. Exemplo: 51999999999',
                     hintStyle: TextStyle(
                         //fontWeight: FontWeight.bold
                         ),
                   ),
                   keyboardType: TextInputType.number,
                   validator: (text) {
-                    if (text.isEmpty || text.length<11) return "Telefone inválido!";
+                    if (text.isEmpty || text.length < 11)
+                      return "Telefone inválido!";
                   },
                 ),
                 SizedBox(height: 16),
@@ -129,6 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _emailController,
                   decoration: InputDecoration(
                     hintText: "Insira seu email",
+                    semanticCounterText: 'Insira seu email',
                     hintStyle: TextStyle(
                         //fontWeight: FontWeight.bold
                         ),
@@ -155,6 +166,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _passController,
                     decoration: InputDecoration(
                       hintText: "Insira sua senha",
+                      semanticCounterText: 'Insira sua senha',
                       hintStyle: TextStyle(
                           //fontWeight: FontWeight.bold
                           ),
@@ -167,11 +179,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: FlatButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Ao criar a conta você aceita os Termos de Uso",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => TermosScreen()));
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          "Ao criar a conta você aceita os",
+                          semanticsLabel:
+                              'Ao criar a conta você aceita os Termos de Uso',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontFamily: 'Montserrat'),
+                        ),
+                        Text(
+                          " Termos de Uso",
+                          semanticsLabel: 'Botão Termos de Uso',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     padding: EdgeInsets
                         .zero, //faz meu botão ficar bem colado a direita (máximo do scaffold)
@@ -185,6 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   child: Text(
                     "Criar Conta",
+                    semanticsLabel: 'Botão para Criar Conta',
                     style: TextStyle(
                       fontSize: 20.0,
                     ),
@@ -208,7 +242,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onSuccess: _onSuccess,
                         onFail: _onFail,
                       );
-                      
                     }
                   },
                 )
@@ -222,7 +255,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _onSuccess() {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text("Usuário criado com sucesso!"),
+      content: Text("Usuário criado com sucesso!",
+          semanticsLabel: "Usuário criado com sucesso!"),
       backgroundColor: Theme.of(context).primaryColor,
       duration: Duration(seconds: 2),
     ));
@@ -233,7 +267,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _onFail() {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text("Falha ao criar usuário!"),
+      content: Text(
+        "Falha ao criar usuário!",
+        semanticsLabel: 'Falha ao criar usuário!',
+      ),
       backgroundColor: Colors.redAccent,
       duration: Duration(seconds: 2),
     ));

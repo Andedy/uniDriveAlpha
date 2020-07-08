@@ -6,19 +6,23 @@ import 'package:unidrive_alpha/widgets/darcarona/detalhes_minhacarona.dart';
 import 'package:unidrive_alpha/widgets/pegarcarona/detalhes_carona.dart';
 
 class DetalhesMinhaCarona extends StatelessWidget {
-  Future getCaronas() async {
-    QuerySnapshot query =
-        await Firestore.instance.collection("caronas").where("name",isEqualTo: this.name).getDocuments();
+  // Future getCaronas() async {
+  //   QuerySnapshot query =
+  //       await Firestore.instance.collection("caronas").where("name",isEqualTo: "ativo).getDocuments();
 
-    return query.documents;
-  }
+  //   return query.documents;
+  // }
+
 
   String name;
   String destino;
   String horario;
   String localSaida;
   String valor;
-  String telefone; //adicionar telefone pra falar com motorista 
+  String telefone; 
+  
+  final _pageController = PageController();
+  DetalhesMinhaCarona({this.name,this.destino,this.horario,this.localSaida,this.valor});
 
   @required
   @override

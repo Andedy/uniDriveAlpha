@@ -21,17 +21,17 @@ class CaronaModel extends Model {
       ScopedModel.of<CaronaModel>(context);
   //esse scoped deixa acessar o CaronaModel em todo o app
 
-  void addCarona(Carona carona, @required VoidCallback onSuccess,
+  void addCarona(Carona caronaData, @required VoidCallback onSuccess,
       @required VoidCallback onFail) {
-    caronas.add(carona);
+    caronas.add(caronaData);
 
     Firestore.instance
         .collection("users")
         .document(user.firebaseUser.uid)
-        .collection("caronas")
-        .add(carona.toMap())
+        .collection("historico")
+        .add(caronaData.toMap())
         .then((doc) {
-      carona.idCarona = doc.documentID;
+      caronaData.idCarona = doc.documentID;
     });
     notifyListeners();
   }
@@ -51,8 +51,6 @@ class CaronaModel extends Model {
   }
 
 
-
-
   void _loadCaronas() async {
     QuerySnapshot query =
         await Firestore.instance.collection("caronas").getDocuments();
@@ -60,6 +58,10 @@ class CaronaModel extends Model {
     caronas = query.documents.map((doc) => Carona.fromDocument(doc)).toList();
     notifyListeners();
   }
+
+
+
+  
   Future<String> finishCarona(Carona carona) async { //testando Carona carona
     if (caronas.length == 0) return null;
 

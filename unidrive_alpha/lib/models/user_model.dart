@@ -31,10 +31,8 @@ class UserModel extends Model {
     isLoading = true;
     notifyListeners();
 
-    _auth
-        .createUserWithEmailAndPassword(
-            email: userData["email"], password: pass)
-        .then((user) async {
+    _auth.createUserWithEmailAndPassword(
+            email: userData["email"], password: pass).then((user) async {
       firebaseUser = user;
 
       await _saveUserData(userData);

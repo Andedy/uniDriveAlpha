@@ -10,8 +10,10 @@ class PegarCaronaScreen extends StatefulWidget {
 
 class _PegarCaronaScreenState extends State<PegarCaronaScreen> {
   Future getCaronas() async {
-    QuerySnapshot query =
-        await Firestore.instance.collection("caronas").where("ativo",isEqualTo: true).getDocuments();
+    QuerySnapshot query = await Firestore.instance
+        .collection("caronas")
+        .where("ativo", isEqualTo: true)
+        .getDocuments();
 
     return query.documents;
   }
@@ -59,26 +61,31 @@ class _PegarCaronaScreenState extends State<PegarCaronaScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         GestureDetector(
-                            child: InfoCard(
-                              user: snapshot.data[index].data["username"],
-                              localSaida: snapshot.data[index].data["localSaida"],
-                              destino: snapshot.data[index].data["destino"],
-                              horarioSaida: snapshot.data[index].data["horarioSaida"],
-                            ),
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => DetalhesCarona(
-                                    name: snapshot.data[index].data["username"],
-                                    localSaida: snapshot.data[index].data["localSaida"],
-                                    destino: snapshot.data[index].data["destino"],
-                                    horario: snapshot.data[index].data["horarioSaida"],
-                                    valor: snapshot.data[index].data["valor"],
-                                    telefone: snapshot.data[index].data["telefone"],
-                                  ),
-                                ), //envia ID da carona clicada
-                              );
-                            }),
+                          child: InfoCard(
+                            user: snapshot.data[index].data["username"],
+                            localSaida: snapshot.data[index].data["localSaida"],
+                            destino: snapshot.data[index].data["destino"],
+                            horarioSaida:
+                                snapshot.data[index].data["horarioSaida"],
+                          ),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => DetalhesCarona(
+                                  name: snapshot.data[index].data["username"],
+                                  localSaida:
+                                      snapshot.data[index].data["localSaida"],
+                                  destino: snapshot.data[index].data["destino"],
+                                  horario:
+                                      snapshot.data[index].data["horarioSaida"],
+                                  valor: snapshot.data[index].data["valor"],
+                                  telefone:
+                                      snapshot.data[index].data["telefone"],
+                                ),
+                              ), //envia ID da carona para DetalhesCarona()
+                            );
+                          },
+                        ),
                       ],
                     );
                   },
