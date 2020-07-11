@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unidrive_alpha/screen/Cars/my_cars_screen.dart';
+import 'package:unidrive_alpha/screen/auth/termos.dart';
 import 'package:unidrive_alpha/screen/home.dart';
 
 class DrawerTile extends StatelessWidget {
@@ -19,13 +20,13 @@ class DrawerTile extends StatelessWidget {
           if (page == 0) {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => Home()));
+          } else if (page == 1){
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => TermosScreen()));
           } else if (page == 4) {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => MyCarsScreen()));
           }
-
-          // Navigator.of(context).pop();
-          // controller.jumpToPage(page);
         },
         child: Container(
           height: 60.0,

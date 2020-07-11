@@ -21,39 +21,39 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(
-          // leading: new IconButton(
-          //   icon: new Icon(Icons.arrow_back, color: Colors.white),
-          //   onPressed: () => Navigator.of(context).pop(),
-          // ),
-          elevation: 0,
-          backgroundColor: Theme.of(context).primaryColor,
-          actions: <Widget>[
-            FlatButton(
-              child: Text(
-                "Termos de Uso",
-                semanticsLabel: "Termos de Uso",
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.white,
-                  fontFamily: 'Montserrat',
-                ),
-              ),
-              textColor: Color(0xFF08AEA4),
-              onPressed: () {
-                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => TermosScreen()));
-              },
-            ),
-          ],
-        ),
+        // appBar: AppBar(
+        //   // leading: new IconButton(
+        //   //   icon: new Icon(Icons.arrow_back, color: Colors.white),
+        //   //   onPressed: () => Navigator.of(context).pop(),
+        //   // ),
+        //   elevation: 0,
+        //   backgroundColor: Theme.of(context).primaryColor,
+        //   actions: <Widget>[
+        //     FlatButton(
+        //       child: Text(
+        //         "Termos de Uso",
+        //         semanticsLabel: "Termos de Uso",
+        //         style: TextStyle(
+        //           fontSize: 15.0,
+        //           color: Colors.white,
+        //           fontFamily: 'Montserrat',
+        //         ),
+        //       ),
+        //       textColor: Color(0xFF08AEA4),
+        //       onPressed: () {
+        //          Navigator.of(context).pushReplacement(MaterialPageRoute(
+        //                     builder: (context) => TermosScreen()));
+        //       },
+        //     ),
+        //   ],
+        // ),
         body: ScopedModelDescendant<UserModel>(
 
             ///scopped adicionado para poder "atualizar todo o app quando um usuario estiver logado, por exemplo"
             builder: (context, child, model) {
           //adicionado junto com scopped - criamos uma forma de acessar o nosso model
           if (model.isLoading)
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator(strokeWidth: 1), );
 
           return Container(
             color: Theme.of(context).primaryColor,
@@ -140,7 +140,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                         if (_emailController.text.isEmpty)
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content:
+                                Text("Insira e-mail para recuperar senha."),
+                            backgroundColor: Colors.redAccent,
+                            duration: Duration(seconds: 2),
+                          ));
+                        else {
+                          model.recoverPass(_emailController.text);
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text("Confira seu e-mail!"),
+                            backgroundColor: Colors.black54,
+                            duration: Duration(seconds: 2),
+                          ));
+                        }
+                      },
                       child: Text(
                         "Esqueceu a senha?",
                         semanticsLabel: 'Esqueceu a senha?',

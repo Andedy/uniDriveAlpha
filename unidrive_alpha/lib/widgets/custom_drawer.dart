@@ -9,6 +9,8 @@ class CustomDrawer extends StatelessWidget {
 
   CustomDrawer(this.pageController);
 
+
+
   @override
   Widget build(BuildContext context) {
     Widget _buildDrawerBack() => Container(
@@ -34,15 +36,29 @@ class CustomDrawer extends StatelessWidget {
                     Positioned(
                       top: 8.0,
                       left: 0.0,
-                      child: Text(
-                        "uniDrive",
-                        style: TextStyle(
-                          fontSize: 34.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Montserrat',
-                          color: Theme.of(context).primaryColor,
-                          //color: Colors.white,
-                        ),
+                      child: Column(
+                        children: [
+                          Text(
+                            "uniDrive",
+                            style: TextStyle(
+                              fontSize: 34.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Montserrat',
+                              color: Theme.of(context).primaryColor,
+                              //color: Colors.white,
+                            ),
+                          ),
+                          // Text(
+                          //   "seu App de caronas",
+                          //    style: TextStyle(
+                          //     fontSize: 16,
+                          //     fontWeight: FontWeight.bold,
+                          //     fontFamily: 'Montserrat',
+                          //     color: Theme.of(context).primaryColor,
+                          //     //color: Colors.white,
+                          //   ),
+                          // ),
+                        ],
                       ),
                     ),
                     Positioned(
@@ -98,7 +114,7 @@ class CustomDrawer extends StatelessWidget {
                 height: 10.0,
               ),
               DrawerTile(Icons.home, "Início", pageController, 0),
-              DrawerTile(Icons.list, "Histórico", pageController, 1),
+              DrawerTile(Icons.list, "Termos de Uso", pageController, 1),
               DrawerTile(Icons.location_on, "Locais", pageController, 2),
               DrawerTile(Icons.playlist_add_check, "Concluído", pageController, 3),
               DrawerTile(Icons.directions_car, "Meus veículos", pageController, 4),

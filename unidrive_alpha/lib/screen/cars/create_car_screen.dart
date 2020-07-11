@@ -43,7 +43,7 @@ class _CreateCarState extends State<CreateCar> {
       body: ScopedModelDescendant<CarModel>(
         builder: (context, child, model) {
           if (model.isLoading)
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator(strokeWidth: 1));
 
           return Form(
             key: _formKey, //faz meu validator funcionar

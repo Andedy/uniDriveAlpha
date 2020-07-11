@@ -60,9 +60,11 @@ class CaronaModel extends Model {
   }
 
 
+  
+
 
   
-  Future<String> finishCarona(Carona carona) async { //testando Carona carona
+  Future<String> criaCarona(Carona carona) async { //testando Carona carona
     if (caronas.length == 0) return null;
 
     isLoading = true;
@@ -93,6 +95,57 @@ class CaronaModel extends Model {
         .collection("users")
         .document(user.firebaseUser.uid)
         .collection("caronas")
+        .getDocuments();
+
+    for (DocumentSnapshot doc in query.documents) {
+      doc.reference.delete();
+    }
+
+    caronas.clear();
+
+    isLoading = false;
+    notifyListeners();
+    //apaga todo meu carrinho depois de fazer a compra... finalizando tudo
+
+    return refCarona.documentID;
+  }
+
+
+
+
+
+
+  Future<String> arquivaCarona(Carona carona) async { //testando Carona carona
+    if (caronas.length == 0) return null;
+
+    isLoading = true;
+    notifyListeners();
+
+    DocumentReference refCarona =
+        await Firestore.instance.collection("historico").add(
+      {
+        "userId": user.firebaseUser.uid,
+        "username": carona.username,
+        "destino": carona.destino,
+        "horarioSaida": carona.horarioSaida,
+        "localSaida": carona.localSaida,
+        "valor" : carona.valor,
+        "ativo": false,
+        "telefone": carona.telefone,
+        // "cars": cars.map((cars) => cars.toMap()).toList(),
+      },
+    );
+    await Firestore.instance
+        .collection("users")
+        .document(user.firebaseUser.uid)
+        .collection("historico")
+        .document(refCarona.documentID)
+        .setData({"caronaId": refCarona.documentID});
+
+    QuerySnapshot query = await Firestore.instance
+        .collection("users")
+        .document(user.firebaseUser.uid)
+        .collection("historico")
         .getDocuments();
 
     for (DocumentSnapshot doc in query.documents) {

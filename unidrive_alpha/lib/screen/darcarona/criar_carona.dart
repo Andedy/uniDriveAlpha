@@ -43,10 +43,9 @@ class _CriarCaronaState extends State<CriarCarona> {
       body: ScopedModelDescendant<CaronaModel>(
         builder: (context, child, model) {
           if (model.isLoading)
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator(strokeWidth: 1));
 
           return Form(
-            
             key: _formKey, //faz meu validator funcionar
             child: ListView(
               padding: EdgeInsets.all(36.0),
@@ -248,7 +247,7 @@ class _CriarCaronaState extends State<CriarCarona> {
                       caronas.username = widget.username;
                       caronas.telefone = _telController.text;
                       //model.addCarona(caronas, _onSuccess, _onFail);
-                      model.finishCarona(caronas);
+                      model.criaCarona(caronas);
                       // model.addCarona(caronas, () { }, () { });
                       Navigator.of(context).push(
                               MaterialPageRoute(

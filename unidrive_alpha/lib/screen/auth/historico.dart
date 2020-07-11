@@ -1,20 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:unidrive_alpha/models/user_model.dart';
 import 'package:unidrive_alpha/screen/pegarcarona/detalhes_carona.dart';
 import 'package:unidrive_alpha/widgets/pegarcarona/InfoCard.dart';
 
-class PegarCaronaScreen extends StatefulWidget {
+class HistoricoScreen extends StatefulWidget {
   @override
   _PegarCaronaScreenState createState() => _PegarCaronaScreenState();
 }
 
-class _PegarCaronaScreenState extends State<PegarCaronaScreen> {
+UserModel user;
+
+class _PegarCaronaScreenState extends State<HistoricoScreen> {
   Future getCaronas() async {
     QuerySnapshot query = await Firestore.instance
-        .collection("caronas")
-        .where("ativo", isEqualTo: true)
+       .collection("users")
+        .document(user.firebaseUser.uid)
+        .collection("historico")
         .getDocuments();
-    return query.documents;
+    return query.documents;    
   }
 
   @override

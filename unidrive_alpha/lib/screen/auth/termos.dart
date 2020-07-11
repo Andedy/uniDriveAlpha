@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unidrive_alpha/screen/auth/signup.dart';
 import 'package:unidrive_alpha/widgets/custom_drawer.dart';
 
 import '../home.dart';
@@ -13,17 +14,16 @@ class TermosScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: new IconButton(
-          padding: EdgeInsets.only(top: 16, left: 16),
-          icon: new Icon(
-            Icons.arrow_back,
-            color: Color(0xFF08AEA4),
-            size: 34,
-          ),
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
-          }
-        ),
+            padding: EdgeInsets.only(top: 16, left: 16),
+            icon: new Icon(
+              Icons.arrow_back,
+              color: Color(0xFF08AEA4),
+              size: 34,
+            ),
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => Home()));
+            }),
         elevation: 0,
       ),
       drawer: CustomDrawer(_pageController),
@@ -462,7 +462,8 @@ class TermosScreen extends StatelessWidget {
                     padding: EdgeInsets.all(12.0),
                     color: Theme.of(context).primaryColor,
                     onPressed: () {
-                       Navigator.of(context).pop();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => Home()));
                     },
                   ),
                   SizedBox(height: 34),

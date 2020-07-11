@@ -36,7 +36,7 @@ class MyCarsScreen extends StatelessWidget {
         builder: (context, child, model) {
           if (model.isLoading && UserModel.of(context).isLoggedIn()) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(strokeWidth: 1),
             );
           } else if (!UserModel.of(context).isLoggedIn()) {
             return Container(

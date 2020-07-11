@@ -8,7 +8,7 @@ class HomeOption extends StatefulWidget {
   String title1;
   String title2;
   Color backColor;
-  Color fontColor; //oi
+  Color fontColor;
   double fontsize;
   bool isButtonDisabled;
   Carona caronas;
