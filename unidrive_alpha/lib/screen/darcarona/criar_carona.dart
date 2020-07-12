@@ -5,6 +5,7 @@ import 'package:unidrive_alpha/datas/carona_data.dart';
 import 'package:unidrive_alpha/models/carona_model.dart';
 import 'package:unidrive_alpha/models/user_model.dart';
 import 'package:unidrive_alpha/screen/darcarona/detalhes_minhacarona.dart';
+import 'package:unidrive_alpha/screen/home.dart';
 import 'dart:async';
 
 import 'package:unidrive_alpha/widgets/darcarona/detalhes_minhacarona.dart';
@@ -35,7 +36,10 @@ class _CriarCaronaState extends State<CriarCarona> {
       appBar: AppBar(
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back, color: Color(0xFF08AEA4)),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => Home()));
+          },
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -250,19 +254,19 @@ class _CriarCaronaState extends State<CriarCarona> {
                       model.criaCarona(caronas);
                       // model.addCarona(caronas, () { }, () { });
                       Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => DetalhesMinhaCarona(
-                                  // name: widget.username,
+                        MaterialPageRoute(
+                          builder: (context) => DetalhesMinhaCarona(
+                              // username: widget.username,
 //descomment aqui
 
-                                  localSaida: _localSaidaController.text,
-                                  destino: _destinoController.text,
-                                  horario: _horarioSaidaController.text,
-                                  valor: _valorController.text,
+                              // localSaida: _localSaidaController.text,
+                              // destino: _destinoController.text,
+                              // horario: _horarioSaidaController.text,
+                              // valor: _valorController.text,
 //ate aqui
-                                ),
-                              ), //envia ID da carona para DetalhesCarona()
-                            );
+                              ),
+                        ), //envia ID da carona para DetalhesCarona()
+                      );
 
                       // Map<String, dynamic> caronaData = {
                       //     "destino": _destinoController.text,

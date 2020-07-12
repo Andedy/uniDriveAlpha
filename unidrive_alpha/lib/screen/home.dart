@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:unidrive_alpha/models/user_model.dart';
+import 'package:unidrive_alpha/screen/auth/historico.dart';
 import 'package:unidrive_alpha/screen/auth/login.dart';
+import 'package:unidrive_alpha/screen/darcarona/detalhes_minhacarona.dart';
 import 'package:unidrive_alpha/screen/pegarcarona/carregando.dart';
 import 'package:unidrive_alpha/screen/pegarcarona/pegar_carona_screen.dart';
 import 'package:unidrive_alpha/widgets/custom_drawer.dart';
@@ -98,7 +100,8 @@ class _HomeState extends State<Home> {
                   child: HomeOption(
                     ContainerHeight: 0,
                     func: () {
-                      Navigator.push(
+                      // if(user==null){
+                        Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => CriarCarona(
@@ -106,6 +109,9 @@ class _HomeState extends State<Home> {
                                   .userData["name"]), //mudar para CARONASCREEN
                         ),
                       );
+                      // } else {
+
+                      // }
                     },
                     title1: "Dar",
                     title2: "Carona",
@@ -113,7 +119,28 @@ class _HomeState extends State<Home> {
                     fontColor: Theme.of(context).primaryColor,
                     isButtonDisabled: bottomButtonDisabled,
                   ),
-
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: FlatButton(
+                    onPressed: () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetalhesMinhaCarona(), //mudar para CARONASCREEN
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Ver minha carona",
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontFamily: 'Montserrat'),
+                    ),
+                    padding: EdgeInsets
+                        .zero, //faz meu botão ficar bem colado a direita (máximo do scaffold)
+                  ),
                 ),
               ],
             ),
