@@ -6,17 +6,19 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
   String horario;
   String localSaida;
   String valor;
+  bool ativo;
 
 
   DetalhesMinhaCaronaWidget(
-      {this.destino, this.horario, this.localSaida, this.valor});
+      {this.destino, this.horario, this.localSaida, this.valor, this.ativo});
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
           color: Theme.of(context).primaryColor,
-          padding: EdgeInsets.only(top: 40),
+          // padding: EdgeInsets.only(top: 40),
+          padding: EdgeInsets.fromLTRB(0, 40, 0, 80),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -43,7 +45,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 80),
+        // SizedBox(height: 80),
         Container(
           height: 700, //era500
           decoration: BoxDecoration(

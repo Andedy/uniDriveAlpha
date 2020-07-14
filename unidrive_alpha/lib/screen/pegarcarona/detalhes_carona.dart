@@ -30,17 +30,6 @@ class DetalhesCarona extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: <Widget>[
-          // FlatButton(
-          //   child: Icon(
-          //     Icons.more_horiz,
-          //     color: Theme.of(context).primaryColor,
-          //     size: 50,
-          //   ),
-          //   onPressed: () {
-          //   },
-          // ),
-        ],
         leading: new IconButton(
           padding: EdgeInsets.only(top: 10, left: 16),
           icon: new Icon(

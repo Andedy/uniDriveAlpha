@@ -12,8 +12,9 @@ import 'package:unidrive_alpha/widgets/darcarona/detalhes_minhacarona.dart';
 
 class CriarCarona extends StatefulWidget {
   String username;
+  final Carona carona;
 
-  CriarCarona({this.username});
+  CriarCarona({this.username, this.carona});
 
   @override
   _CriarCaronaState createState() => _CriarCaronaState();
@@ -259,10 +260,10 @@ class _CriarCaronaState extends State<CriarCarona> {
                               // username: widget.username,
 //descomment aqui
 
-                              // localSaida: _localSaidaController.text,
-                              // destino: _destinoController.text,
-                              // horario: _horarioSaidaController.text,
-                              // valor: _valorController.text,
+                              localSaida: _localSaidaController.text,
+                              destino: _destinoController.text,
+                              horario: _horarioSaidaController.text,
+                              valor: _valorController.text,
 //ate aqui
                               ),
                         ), //envia ID da carona para DetalhesCarona()

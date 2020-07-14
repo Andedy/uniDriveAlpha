@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -11,6 +12,7 @@ import 'package:unidrive_alpha/widgets/custom_drawer.dart';
 import 'package:unidrive_alpha/widgets/home.option.dart';
 
 import 'darcarona/criar_carona.dart';
+import 'darcarona/minhas_caronas.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -25,6 +27,9 @@ class _HomeState extends State<Home> {
   bool topButtonDisabled = false;
   bool bottomButtonDisabled = false;
   final _pageController = PageController();
+  
+  
+  // final DocumentSnapshot snapshot;
 
 
   BorderRadiusGeometry _topContainerBorderRadius = BorderRadius.only(
@@ -127,7 +132,8 @@ class _HomeState extends State<Home> {
                        Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetalhesMinhaCarona(), //mudar para CARONASCREEN
+                          builder: (context) => MinhasCaronasList(
+                            ), //mudar para CARONASCREEN
                         ),
                       );
                     },

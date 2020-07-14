@@ -4,6 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:unidrive_alpha/screen/auth/login.dart';
 import 'package:unidrive_alpha/screen/auth/termos.dart';
 import 'package:unidrive_alpha/screen/darcarona/detalhes_minhacarona.dart';
+import 'package:unidrive_alpha/screen/darcarona/minhas_caronas.dart';
 import 'package:unidrive_alpha/screen/home.dart';
 import 'package:unidrive_alpha/screen/main_screen.dart';
 import 'models/carona_model.dart';
@@ -12,6 +13,7 @@ import 'models/user_model.dart';
 void main() => runApp(MyApp());
 
  // Set default home.
+  // Widget _defaultHome = new MainScreen();
   Widget _defaultHome = new MainScreen();
 
 
