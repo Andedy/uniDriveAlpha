@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unidrive_alpha/datas/carona_data.dart';
 import 'package:unidrive_alpha/screen/darcarona/criar_carona.dart';
+import 'package:unidrive_alpha/screen/home.dart';
 
 class DetalhesMinhaCaronaWidget extends StatelessWidget {
   String destino;
@@ -11,36 +12,84 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
   String valor;
   bool ativo;
 
-  getDocId() async{
-  QuerySnapshot snapshot = await Firestore.instance.collection('caronas').getDocuments();
-  snapshot.documents.forEach((myDoc){
-    // return myDoc.documentID;
-    print(myDoc.documentID);
-  });
-  } 
-
-  atualizaCarona() async{
-  final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-  QuerySnapshot snapshot = await Firestore.instance
-  .collection('caronas')
-  .where("userId", isEqualTo: user.uid)
-  .getDocuments();
-  snapshot.documents.forEach((myDoc){
-    myDoc.reference.updateData({'ativo': false});
-    print(myDoc.documentID);
-  });
-  } 
-
-// final docId = 
-
-  deleteData(docId) {
-    Firestore.instance
-        .collection('caronas')
-        .document(docId)
-        .delete()
-        .catchError((e) {
-      print(e);
+  getDocId() async {
+    QuerySnapshot snapshot =
+        await Firestore.instance.collection('caronas').getDocuments();
+    snapshot.documents.forEach((myDoc) {
+      // return myDoc.documentID;
+      print(myDoc.documentID);
     });
+  }
+
+  atualizaCarona() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    QuerySnapshot snapshot = await Firestore.instance
+        .collection('caronas')
+        .where("userId", isEqualTo: user.uid)
+        .getDocuments();
+    snapshot.documents.forEach((myDoc) {
+      myDoc.reference.updateData({'ativo': false});
+      print(myDoc.documentID);
+    });
+  }
+
+// final docId =
+
+  // deleteData() {
+  //   Firestore.instance
+  //       .collection('caronas')
+  //       .document()
+  //       .where("userId", isEqualTo: user.uid)
+  //       .delete()
+  //       .catchError((e) {
+  //     print(e);
+  //   });
+  // }
+  deleteCarona() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    QuerySnapshot snapshot = await Firestore.instance
+        .collection('caronas')
+        .where("userId", isEqualTo: user.uid)
+        .getDocuments();
+    snapshot.documents.forEach((myDoc) {
+      myDoc.reference.delete();
+    });
+  }
+
+  Future<String> arquivaCarona(Carona carona) async {
+    //testando Carona carona
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
+    DocumentReference refCarona =
+        await Firestore.instance.collection("historico").add(
+      {
+        "userId": user.uid,
+        "destino": carona.destino,
+        "horarioSaida": carona.horarioSaida,
+        "localSaida": carona.localSaida,
+        "valor": carona.valor,
+        "ativo": false,
+      },
+    );
+    await Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .collection("caronas")
+        .document(refCarona.documentID)
+        .setData({"caronaId": refCarona.documentID});
+
+    QuerySnapshot query = await Firestore.instance
+        .collection('caronas')
+        .where("userId", isEqualTo: user.uid)
+        .getDocuments();
+
+    for (DocumentSnapshot doc in query.documents) {
+      doc.reference.delete();
+    }
+
+    caronas.clear();
+
+    return refCarona.documentID;
   }
 
   List<Carona> caronas = [];
@@ -233,6 +282,8 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                           color: Color(0xFF292929),
                           onPressed: () {
                             atualizaCarona();
+                             Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Home()));
                           },
                         ),
                         SizedBox(height: 8),
@@ -256,7 +307,17 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                               // deleteCarona;
                               // Navigator.of(context).push(MaterialPageRoute(
                               //     builder: (context) => CriarCarona()));
-                              getDocId();
+                              // deleteCarona();
+                              Carona caronas = new Carona();
+                              caronas.destino = destino;
+                              caronas.localSaida = localSaida;
+                              caronas.horarioSaida = horario;
+                              caronas.valor = valor;
+                              //model.addCarona(caronas, _onSuccess, _onFail);
+                              arquivaCarona(caronas);
+                              print(caronas);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Home()));
                             },
                           ),
                         ),

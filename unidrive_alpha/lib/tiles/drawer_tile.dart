@@ -25,7 +25,7 @@ class DrawerTile extends StatelessWidget {
                 .push(MaterialPageRoute(builder: (context) => TermosScreen()));
           } else if (page == 4) {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => MyCarsScreen()));
+                .push(MaterialPageRoute(builder: (context) => Home()));
           }
         },
         child: Container(

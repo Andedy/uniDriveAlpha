@@ -5,22 +5,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unidrive_alpha/models/user_model.dart';
 import 'package:unidrive_alpha/screen/auth/login.dart';
+import 'package:unidrive_alpha/screen/darcarona/criar_carona.dart';
+import 'package:unidrive_alpha/screen/darcarona/detalhes_minhacarona.dart';
 import 'package:unidrive_alpha/screen/home.dart';
 import 'package:unidrive_alpha/screen/pegarcarona/pegar_carona_screen.dart';
 
-class CarregandoScreen extends StatefulWidget {
+class CarregandoDarCarona extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => StartState();
 }
 
-class StartState extends State<CarregandoScreen> {
-
+class StartState extends State<CarregandoDarCarona> {
   FirebaseUser firebaseUser;
 
   Future getCaronas() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
     QuerySnapshot query = await Firestore.instance
         .collection("caronas")
-        .where("ativo", isEqualTo: true)
+        .where("userId", isEqualTo: user.uid)
         .getDocuments();
     return query.documents;
   }
@@ -29,6 +31,9 @@ class StartState extends State<CarregandoScreen> {
   Widget build(BuildContext context) {
     return initScreen(context);
   }
+   
+
+  
 
   @override
   void initState() {
@@ -42,12 +47,12 @@ class StartState extends State<CarregandoScreen> {
   }
 
   route() async {
-    if (firebaseUser ==  null) { //isso nao faz sentido, mas funciona (?) hm
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => PegarCaronaScreen()));
-    } 
-    // else if ()
-
+    if (firebaseUser == null) {
+      //isso nao faz sentido, mas funciona (?) hm
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => DetalhesMinhaCarona()));
+    }
+    else CriarCarona();
   }
 
   initScreen(BuildContext context) {
@@ -66,11 +71,11 @@ class StartState extends State<CarregandoScreen> {
                 Text(
                   "Carregando Caronas",
                   style: TextStyle(
-                      fontSize: 34,
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      ),
+                    fontSize: 34,
+                    fontFamily: 'Montserrat',
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 34, 16, 16),
