@@ -47,6 +47,15 @@ class _HomeState extends State<Home> {
     );
   }
 
+ Future getCaronas() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    QuerySnapshot query = await Firestore.instance
+        .collection("caronas")
+        .where("userId", isEqualTo: user.uid)
+        .getDocuments();
+    return query.documents;
+  }
+  
   Future pegarCarona() async {
     await Future.delayed(Duration(seconds: 1));
     await Navigator.push(

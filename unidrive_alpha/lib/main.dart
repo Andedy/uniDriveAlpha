@@ -13,7 +13,6 @@ import 'models/user_model.dart';
 void main() => runApp(MyApp());
 
  // Set default home.
-  // Widget _defaultHome = new MainScreen();
   Widget _defaultHome = new MainScreen();
 
 

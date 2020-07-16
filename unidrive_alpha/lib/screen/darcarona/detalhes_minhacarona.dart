@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:unidrive_alpha/datas/carona_data.dart';
 import 'package:unidrive_alpha/models/user_model.dart';
 import 'package:unidrive_alpha/screen/auth/historico.dart';
 import 'package:unidrive_alpha/screen/home.dart';
@@ -11,6 +12,7 @@ import 'package:unidrive_alpha/widgets/pegarcarona/detalhes_carona.dart';
 
 class DetalhesMinhaCarona extends StatelessWidget {
   final _pageController = PageController();
+  List<Carona> caronas = [];
 
   Future getCaronas() async {
     QuerySnapshot query =
@@ -86,4 +88,5 @@ class DetalhesMinhaCarona extends StatelessWidget {
       ),
     );
   }
+   
 }

@@ -20,7 +20,6 @@ class _PegarCaronaScreenState extends State<MinhasCaronasList> {
 
   Future getCaronas() async {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    // print(user);
     QuerySnapshot query = await Firestore.instance
         .collection("caronas")
         .where("userId", isEqualTo: user.uid)

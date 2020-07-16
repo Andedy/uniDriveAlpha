@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:unidrive_alpha/datas/carona_data.dart';
 import 'package:unidrive_alpha/screen/darcarona/criar_carona.dart';
 
 class DetalhesMinhaCaronaWidget extends StatelessWidget {
@@ -8,6 +11,39 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
   String valor;
   bool ativo;
 
+  getDocId() async{
+  QuerySnapshot snapshot = await Firestore.instance.collection('caronas').getDocuments();
+  snapshot.documents.forEach((myDoc){
+    // return myDoc.documentID;
+    print(myDoc.documentID);
+  });
+  } 
+
+  atualizaCarona() async{
+  final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+  QuerySnapshot snapshot = await Firestore.instance
+  .collection('caronas')
+  .where("userId", isEqualTo: user.uid)
+  .getDocuments();
+  snapshot.documents.forEach((myDoc){
+    myDoc.reference.updateData({'ativo': false});
+    print(myDoc.documentID);
+  });
+  } 
+
+// final docId = 
+
+  deleteData(docId) {
+    Firestore.instance
+        .collection('caronas')
+        .document(docId)
+        .delete()
+        .catchError((e) {
+      print(e);
+    });
+  }
+
+  List<Carona> caronas = [];
 
   DetalhesMinhaCaronaWidget(
       {this.destino, this.horario, this.localSaida, this.valor, this.ativo});
@@ -196,9 +232,7 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                           padding: EdgeInsets.fromLTRB(100, 10, 100, 10),
                           color: Color(0xFF292929),
                           onPressed: () {
-                            
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) => Home()));
+                            atualizaCarona();
                           },
                         ),
                         SizedBox(height: 8),
@@ -219,8 +253,10 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => CriarCarona()));
+                              // deleteCarona;
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => CriarCarona()));
+                              getDocId();
                             },
                           ),
                         ),
@@ -236,4 +272,19 @@ class DetalhesMinhaCaronaWidget extends StatelessWidget {
       ],
     );
   }
+
+  // void deleteCarona(user.uid) {
+  //   Firestore.instance.collection("caronas").document(carona.idCarona).delete();
+
+  //   caronas.remove(carona);
+  // }
+
+  // void updateCarona(Carona carona){
+  //    Firestore.instance
+  //       .collection("caronas")
+  //       .document(carona.idCarona)
+  //       .delete();
+
+  //   caronas.remove(carona);
+  // }
 }

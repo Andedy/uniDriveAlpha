@@ -81,6 +81,7 @@ class CaronaModel extends Model {
         "valor" : carona.valor,
         "ativo": true,
         "telefone": carona.telefone,
+        "caronaId": carona.idCarona,
         // "cars": cars.map((cars) => cars.toMap()).toList(),
       },
     );
